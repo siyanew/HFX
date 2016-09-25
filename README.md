@@ -1,5 +1,6 @@
 # HFX
 It's a HDFS File Manager Written in Python and Django.
+![HFX](http://siyanew.com/HFX.png)
 
 ## How to Run ?
 First of all install python, pip and django (Ubuntu):
