@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>File Manager</title>
+</head>
+<body>
+<div id="dragandrophandler" style="display: none"><div class="drags">Drag & Drop Files Here</div>
+</div>
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!" class="touch"><i class="fa fa-file-o"></i> File</a></li>
+  <li><a href="#!" class="mkdir"><i class="fa fa-folder-o"></i> Directory</a></li>
+</ul>
+<div class="navbar-fixed">
+<nav>
+    <div class="nav-wrapper blue lighten-1">
+        <a href="#!" class="logo">&nbsp;<i class="fa fa-folder-open-o"></i> HDFS File Manager</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#" class="directory" data-src="/"><i class="fa fa-home"></i> Home</a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1" style="width: 120px;"><i class="fa fa-plus left"></i>Create </a></li>
+            <li><a href="#" class="cut_all"><i class="fa fa-cut"></i> Cut</a></li>
+            <li><a href="#" class="copy_all"><i class="fa fa-copy"></i> Copy</a></li>
+            <li><a href="#" class="paste_all"><i class="fa fa-paste"></i> Paste</a></li>
+            <li><a href="#" class="delete_all"><i class="fa fa-trash"></i> Delete</a></li>
+            <li><a href="#" class="refreshls disabled"><i class="fa fa-refresh"></i> Refresh</a></li>
+
+        </ul>
+    </div>
+</nav>
+</div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col s12">
+            <h1>Browse Directory</h1>
+            <div class="progress loading-linear" style="display: none">
+                <div class="indeterminate"></div>
+            </div>
+
+            <div id="lstable">
+                {% include "hfm/ls_table.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+<div id="reader_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4 class="reader_title"></h4>
+        <p id="reader_textarea" class="reader_body materializes-textarea"></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="reader_modal_close waves-effect waves-green btn-flat"><i class="fa fa-close"></i> Close</a>
+    </div>
+</div>
+<div id="upload_modal" class="modal">
+    <div class="modal-content">
+        <h4 class="upload_dir"></h4>
+        <form id="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Browse</span>
+                    <input id="file_upload" type="file" name="file_upload">
+                </div>
+                <div class="file-path-wrapper">
+                    <input id="fileUpload" class="file-path validate" type="text" name="file_name">
+                    <input type="hidden" class="upload_pwd" name="pwd" value="">
+                </div>
+            </div>
+            <button type="reset" id="file_reset" style="display:none"></button>
+        </form>
+        <div class="progress loading-linear-upload" style="display: none">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="upload waves-effect waves-green btn-flat"><i class="fa fa-upload"></i> Upload</a>
+        <a href="#!" class="close_upload modal-action modal-close waves-effect waves-green btn-flat"><i
+                class="fa fa-close"></i> Close</a>
+    </div>
+</div>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a href="#upload_modal" class="upload_modal_trigger btn-floating btn-large waves-effect waves-light blue lighten-1"><i
+            class="fa fa-upload"></i></a>
+</div>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/sweetalert.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

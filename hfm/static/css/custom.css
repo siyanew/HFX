@@ -1,0 +1,55 @@
+.btn i {
+    font-size: 1.18rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+}
+
+.text-area {
+    height: 20rem;
+}
+
+#lstable .btn, .abort {
+    padding: 0 0.7rem;
+}
+
+#dragandrophandler {
+    border: 2px dotted #0B85A1;
+    width: 100%;
+    color: #FFF;
+    text-align: center;
+    padding: 10px 10px 10 10px;
+    margin-bottom: 10px;
+    font-size: 200%;
+    position: fixed;
+    z-index: 9999;
+    background-color: rgba(1, 5, 8, 0.38);
+    margin: auto;
+    height: 100%;
+    display: table;
+}
+
+.drags {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.progress {
+    transition: 3s;
+}
+
+#status{
+    padding: 20px 10px;
+background-color: rgb(242, 242, 242);
+border-radius: 3px;
+margin: 10px 0px;
+}
+.filename {
+overflow-x: auto;
+white-space: nowrap;
+}
+
+
+
+

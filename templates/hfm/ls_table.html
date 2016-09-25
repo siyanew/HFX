@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="input-field col s1">
+        {% if parent %}
+            <a class="waves-effect waves-light btn directory" data-src="{{ parent }}"><i
+                    class="fa fa-angle-double-left"></i> Back</a>
+        {% else %}
+            <a class="waves-effect waves-light btn disabled"><i class="fa fa-angle-double-left"></i> Back</a>
+        {% endif %}
+    </div>
+    <div class="input-field col s9">
+        <i class="fa fa-map-o prefix"></i>
+        <input id="icon_prefix" type="text" class="validate wd" value="{{ pwd }}" placeholder="{{ pwd }}">
+        <label for="icon_prefix">Working Direcory</label>
+    </div>
+    <div class="input-field col s2">
+        <a class="waves-effect waves-light btn-large blue lighten-1 cd">Go <i class="fa fa-angle-right"></i></a>
+    </div>
+</div>
+<div class="pwd" data-src="{{ pwd }}"></div>
+<table class="striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Permission</th>
+                        <th>Owner</th>
+                        <th>Group</th>
+                        <th>Last Modified</th>
+                        <th>Replication</th>
+                        <th>Size</th>
+                        <th>name</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for file in files %}
+                        <tr>
+                        <td><i class="fa fa-{{ file.Type }}"></i></td>
+                            <td><input type="checkbox" id="file_{{ file.name }}" data-src="{{ file.address }}" class="check_box" />
+                            <label for="file_{{ file.name }}"></label></td>
+                            <td>{{ file.Permission }}</td>
+                            <td>{{ file.Owner }}</td>
+                            <td>{{ file.Group }}</td>
+                            <td>{{ file.Last_Modified }}</td>
+                            <td>{{ file.Replication }}</td>
+                            <td>{{ file.Size }}</td>
+                            {% if file.IsDirectory %}
+                                <td><a href="#" data-src="{{ file.address }}" class="directory">{{ file.name }}</a></td>
+                            {% else %}
+                                {% if file.IsCopying %}
+                                    <td><a class="copying tooltipped" data-position="top" data-delay="20" data-tooltip="Please Wait, Copying!">{{ file.name }}</a></td>
+                                {% else %}
+                                    <td><a href="#" data-src="{{ file.address }}" class="file">{{ file.name }}</a></td>
+                                {% endif %}
+                            {% endif %}
+                            <td>
+                            {% if file.IsCopying %}
+<a class="waves-effect waves-light btn purple lighten-2 rename disabled"
+                                   data-src="{{ file.address }}" data-name="{{ file.name }}"><i class="fa fa-edit"></i></a>
+                                <a class="waves-effect waves-light btn red  lighten-2 delete_file disabled"
+                                   data-src="{{ file.address }}"><i class="fa fa-trash"></i></a>
+                                    <a class="waves-effect waves-light btn blue  lighten-1 disabled"><i
+                                            class="fa fa-download"></i></a>
+                              {% else %}
+
+
+                                <a class="waves-effect waves-light btn purple lighten-2 rename"
+                                   data-src="{{ file.address }}" data-name="{{ file.name }}"><i class="fa fa-edit"></i></a>
+                                <a class="waves-effect waves-light btn red  lighten-2 delete_file"
+                                   data-src="{{ file.address }}"><i class="fa fa-trash"></i></a>
+                                {% if file.IsDirectory %}
+                                    <a class="waves-effect waves-light btn blue  lighten-1 disabled"><i
+                                            class="fa fa-download"></i></a>
+                                {% else %}
+                                    <a class="waves-effect waves-light btn blue  lighten-1"
+                                       href="http://{{ HADOOP_MASTER_ADDRESS }}/webhdfs/v1{{ file.address }}?op=OPEN"><i
+                                            class="fa fa-download"></i></a>
+                                {% endif %}
+                        {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
